@@ -6,6 +6,7 @@ modId="manicworld"
 version="${file.jarVersion}"
 displayName="Manic World"
 displayURL="https://github.com/DavidQF555/ManicWorld"
+logoFile="logo.png"
 authors="DavidQF555"
 description='''
 This mod creates a manic world filled with more mobs and items.'''
