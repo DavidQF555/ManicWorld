@@ -1,8 +1,8 @@
-package io.github.davidqf555.minecraft.manicworld.util;
+package io.github.davidqf555.minecraft.manicworld.common.util;
 
 import io.github.davidqf555.minecraft.manicworld.ManicWorld;
 import io.github.davidqf555.minecraft.manicworld.client.render.PegasusRenderer;
-import io.github.davidqf555.minecraft.manicworld.entities.EntityRegistry;
+import io.github.davidqf555.minecraft.manicworld.common.entities.EntityRegistry;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;

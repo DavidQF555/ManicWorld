@@ -1,4 +1,4 @@
-package io.github.davidqf555.minecraft.manicworld.entities;
+package io.github.davidqf555.minecraft.manicworld.common.entities;
 
 import net.minecraft.entity.ai.goal.RandomWalkingGoal;
 import net.minecraft.entity.monster.ZombieEntity;

@@ -1,6 +1,6 @@
 modLoader="javafml"
 loaderVersion="[32,)"
-license="GNU GPLv3"
+license="GPLv3"
 [[mods]]
 modId="manicworld"
 version="${file.jarVersion}"

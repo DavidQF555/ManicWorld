@@ -1,5 +1,6 @@
-package io.github.davidqf555.minecraft.manicworld.entities;
+package io.github.davidqf555.minecraft.manicworld.common.entities;
 
+import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.entity.*;
@@ -24,15 +25,18 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.ForgeEventFactory;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
+@ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
 public class PegasusEntity extends AbstractHorseEntity implements IFlyingAnimal {
 
     private static final IParticleData PARTICLE = ParticleTypes.END_ROD;
@@ -47,10 +51,10 @@ public class PegasusEntity extends AbstractHorseEntity implements IFlyingAnimal 
 
     public static AttributeModifierMap.MutableAttribute setAttributes() {
         return MobEntity.func_233666_p_()
-                .func_233815_a_(Attributes.field_233821_d_, 1)
-                .func_233815_a_(Attributes.field_233822_e_, 1.5)
-                .func_233815_a_(Attributes.field_233818_a_, 20)
-                .func_233815_a_(Attributes.field_233830_m_, 10);
+                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 1)
+                .createMutableAttribute(Attributes.FLYING_SPEED, 1.5)
+                .createMutableAttribute(Attributes.MAX_HEALTH, 20)
+                .createMutableAttribute(Attributes.HORSE_JUMP_STRENGTH, 10);
     }
 
     @Override
@@ -59,9 +63,8 @@ public class PegasusEntity extends AbstractHorseEntity implements IFlyingAnimal 
         goalSelector.addGoal(1, new FlyAwayGoal(1.5));
     }
 
-    @Nonnull
     @Override
-    public PathNavigator createNavigator(@Nonnull World worldIn) {
+    public PathNavigator createNavigator(World worldIn) {
         FlyingPathNavigator nav = new FlyingPathNavigator(this, worldIn);
         nav.setCanSwim(true);
         nav.setCanOpenDoors(false);
@@ -79,9 +82,8 @@ public class PegasusEntity extends AbstractHorseEntity implements IFlyingAnimal 
         world.addParticle(PARTICLE, getPosXRandom(scale), getPosYRandom() + scale / 2, getPosZRandom(scale), x, y, z);
     }
 
-    @Nonnull
     @Override
-    public ActionResultType func_230254_b_(PlayerEntity player, @Nonnull Hand hand) {
+    public ActionResultType func_230254_b_(PlayerEntity player, Hand hand) {
         ItemStack itemstack = player.getHeldItem(hand);
         if (!isChild()) {
             if (isTame() && player.isSecondaryUseActive()) {
@@ -96,7 +98,7 @@ public class PegasusEntity extends AbstractHorseEntity implements IFlyingAnimal 
             if (isBreedingItem(itemstack)) {
                 return func_241395_b_(player, itemstack);
             }
-            ActionResultType actionresulttype = itemstack.func_111282_a_(player, this, hand);
+            ActionResultType actionresulttype = itemstack.interactWithEntity(player, this, hand);
             if (actionresulttype.isSuccessOrConsume()) {
                 return actionresulttype;
             }
@@ -119,7 +121,7 @@ public class PegasusEntity extends AbstractHorseEntity implements IFlyingAnimal 
     }
 
     @Override
-    public void travel(@Nonnull Vector3d vec) {
+    public void travel(Vector3d vec) {
         if (isAlive()) {
             if (isBeingRidden() && canBeSteered() && isHorseSaddled()) {
                 LivingEntity livingentity = (LivingEntity) getControllingPassenger();
@@ -156,7 +158,7 @@ public class PegasusEntity extends AbstractHorseEntity implements IFlyingAnimal 
                 }
                 jumpMovementFactor = getAIMoveSpeed() * 0.1F;
                 if (canPassengerSteer()) {
-                    setAIMoveSpeed((float) func_233637_b_(Attributes.field_233822_e_));
+                    setAIMoveSpeed((float) getAttributeValue(Attributes.FLYING_SPEED));
                     float pitch = -livingentity.getPitch(0) * 3.14159265358979323846f / 180;
                     super.travel(new Vector3d(livingentity.moveStrafing * 0.5, MathHelper.sin(pitch) * MathHelper.abs(forward), MathHelper.cos(pitch) * forward));
                 } else if (livingentity instanceof PlayerEntity) {
@@ -189,24 +191,24 @@ public class PegasusEntity extends AbstractHorseEntity implements IFlyingAnimal 
     }
 
     @Override
-    public boolean isBreedingItem(@Nonnull ItemStack stack) {
+    public boolean isBreedingItem(ItemStack stack) {
         return BREEDING.test(stack);
     }
 
     @Override
-    public boolean canMateWith(@Nonnull AnimalEntity otherAnimal) {
+    public boolean canMateWith(AnimalEntity otherAnimal) {
         return otherAnimal != this && canMate() && otherAnimal instanceof PegasusEntity && ((PegasusEntity) otherAnimal).canMate();
     }
 
     @Override
-    public AgeableEntity createChild(@Nonnull AgeableEntity mate) {
+    public AgeableEntity func_241840_a(ServerWorld world, AgeableEntity mate) {
         PegasusEntity child = EntityRegistry.PEGASUS_ENTITY.get().create(world);
         setOffspringAttributes(mate, child);
         return child;
     }
 
     @Override
-    public void playGallopSound(@Nonnull SoundType type) {
+    public void playGallopSound(SoundType type) {
         super.playGallopSound(type);
         if (this.rand.nextInt(10) == 0) {
             this.playSound(SoundEvents.ENTITY_HORSE_BREATHE, type.getVolume() * 0.6F, type.getPitch());
@@ -231,7 +233,7 @@ public class PegasusEntity extends AbstractHorseEntity implements IFlyingAnimal 
     }
 
     @Override
-    public SoundEvent getHurtSound(@Nonnull DamageSource damageSourceIn) {
+    public SoundEvent getHurtSound(DamageSource damageSourceIn) {
         super.getHurtSound(damageSourceIn);
         return SoundEvents.ENTITY_HORSE_HURT;
     }
@@ -243,9 +245,9 @@ public class PegasusEntity extends AbstractHorseEntity implements IFlyingAnimal 
     }
 
     public static class Factory implements EntityType.IFactory<PegasusEntity> {
-        @Nonnull
+
         @Override
-        public PegasusEntity create(@Nullable EntityType<PegasusEntity> type, @Nonnull World world) {
+        public PegasusEntity create(@Nullable EntityType<PegasusEntity> type, World world) {
             return new PegasusEntity(world);
         }
     }
@@ -271,7 +273,8 @@ public class PegasusEntity extends AbstractHorseEntity implements IFlyingAnimal 
                     for (int dY = -Y; dY <= Y; dY++) {
                         for (int dZ = -XZ; dZ <= XZ; dZ++) {
                             BlockPos b = new BlockPos(getPosX() + dX, getPosY() + dY, getPosZ() + dZ);
-                            if (world.getBlockState(b).isAir(world, b) && b.withinDistance(getPositionVec(), MIN_DIST)) {
+                            BlockState state = world.getBlockState(b);
+                            if (state.getBlock().isAir(state, world, b) && b.withinDistance(getPositionVec(), MIN_DIST)) {
                                 pos.add(b);
                             }
                         }

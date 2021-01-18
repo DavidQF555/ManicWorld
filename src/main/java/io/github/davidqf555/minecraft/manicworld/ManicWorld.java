@@ -1,7 +1,7 @@
 package io.github.davidqf555.minecraft.manicworld;
 
-import io.github.davidqf555.minecraft.manicworld.entities.EntityRegistry;
-import io.github.davidqf555.minecraft.manicworld.entities.PegasusEntity;
+import io.github.davidqf555.minecraft.manicworld.common.entities.EntityRegistry;
+import io.github.davidqf555.minecraft.manicworld.common.entities.PegasusEntity;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.DeferredWorkQueue;
@@ -26,7 +26,7 @@ public class ManicWorld {
 
     @Deprecated
     private void setup(final FMLCommonSetupEvent event) {
-        DeferredWorkQueue.runLater(() -> GlobalEntityTypeAttributes.put(EntityRegistry.PEGASUS_ENTITY.get(), PegasusEntity.setAttributes().func_233813_a_()));
+        DeferredWorkQueue.runLater(() -> GlobalEntityTypeAttributes.put(EntityRegistry.PEGASUS_ENTITY.get(), PegasusEntity.setAttributes().create()));
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {

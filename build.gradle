@@ -12,7 +12,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '1.16.1-0.9.1.2'
+version = '1.16.5-1.0.0.0'
 group = 'io.github.davidqf555.minecraft.manicworld'
 archivesBaseName = 'manicworld'
 
@@ -20,7 +20,7 @@ sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = co
 
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
-    mappings channel: 'snapshot', version: '20200514-1.16'
+    mappings channel: 'snapshot', version: '20201028-1.16.3'
     runs {
         client {
             workingDirectory project.file('run')
@@ -62,18 +62,18 @@ minecraft {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.16.1-32.0.108'
+    minecraft 'net.minecraftforge:forge:1.16.5-36.0.0'
 }
 
 jar {
     manifest {
         attributes([
                 "Specification-Title"     : "manicworld",
-                "Specification-Vendor"    : "davidqf",
+                "Specification-Vendor"    : "davidqf555",
                 "Specification-Version"   : "1",
                 "Implementation-Title"    : project.name,
                 "Implementation-Version"  : "${version}",
-                "Implementation-Vendor"   : "davidqf",
+                "Implementation-Vendor"   : "davidqf555",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }

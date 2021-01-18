@@ -1,4 +1,4 @@
-package io.github.davidqf555.minecraft.manicworld.entities;
+package io.github.davidqf555.minecraft.manicworld.common.entities;
 
 import io.github.davidqf555.minecraft.manicworld.ManicWorld;
 import net.minecraft.entity.EntityClassification;

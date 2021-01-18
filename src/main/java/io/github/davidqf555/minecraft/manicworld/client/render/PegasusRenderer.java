@@ -3,7 +3,7 @@ package io.github.davidqf555.minecraft.manicworld.client.render;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import io.github.davidqf555.minecraft.manicworld.ManicWorld;
 import io.github.davidqf555.minecraft.manicworld.client.model.PegasusWingsModel;
-import io.github.davidqf555.minecraft.manicworld.entities.PegasusEntity;
+import io.github.davidqf555.minecraft.manicworld.common.entities.PegasusEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.AbstractHorseRenderer;
@@ -14,13 +14,10 @@ import net.minecraft.client.renderer.entity.model.HorseModel;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-@OnlyIn(Dist.CLIENT)
 public class PegasusRenderer extends AbstractHorseRenderer<PegasusEntity, HorseModel<PegasusEntity>> {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation("textures/entity/horse/horse_white.png");
@@ -41,7 +38,6 @@ public class PegasusRenderer extends AbstractHorseRenderer<PegasusEntity, HorseM
         return 15;
     }
 
-    @OnlyIn(Dist.CLIENT)
     private static class WingsRenderer extends LayerRenderer<PegasusEntity, HorseModel<PegasusEntity>> {
 
         private static final ResourceLocation TEXTURE = new ResourceLocation(ManicWorld.MOD_ID, "textures/entity/pegasus_wings.png");

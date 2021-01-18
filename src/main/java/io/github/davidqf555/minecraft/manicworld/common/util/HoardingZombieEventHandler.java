@@ -1,7 +1,7 @@
-package io.github.davidqf555.minecraft.manicworld.util;
+package io.github.davidqf555.minecraft.manicworld.common.util;
 
 import io.github.davidqf555.minecraft.manicworld.ManicWorld;
-import io.github.davidqf555.minecraft.manicworld.entities.ZombieHoardGoal;
+import io.github.davidqf555.minecraft.manicworld.common.entities.ZombieHoardGoal;
 import net.minecraft.entity.ai.goal.RandomWalkingGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.monster.ZombieEntity;

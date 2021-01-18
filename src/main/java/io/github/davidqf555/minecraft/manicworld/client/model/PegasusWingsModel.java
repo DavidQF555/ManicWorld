@@ -2,7 +2,7 @@ package io.github.davidqf555.minecraft.manicworld.client.model;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import io.github.davidqf555.minecraft.manicworld.entities.PegasusEntity;
+import io.github.davidqf555.minecraft.manicworld.common.entities.PegasusEntity;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 
