@@ -1,4 +1,4 @@
-package com.davidqf.minecraft.manicworld.entities;
+package io.github.davidqf555.minecraft.manicworld.entities;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
@@ -9,7 +9,7 @@ import net.minecraft.entity.ai.controller.FlyingMovementController;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.IFlyingAnimal;
-import net.minecraft.entity.passive.horse.*;
+import net.minecraft.entity.passive.horse.AbstractHorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -242,6 +242,14 @@ public class PegasusEntity extends AbstractHorseEntity implements IFlyingAnimal 
         return SoundEvents.ENTITY_HORSE_ANGRY;
     }
 
+    public static class Factory implements EntityType.IFactory<PegasusEntity> {
+        @Nonnull
+        @Override
+        public PegasusEntity create(@Nullable EntityType<PegasusEntity> type, @Nonnull World world) {
+            return new PegasusEntity(world);
+        }
+    }
+
     private class FlyAwayGoal extends Goal {
 
         private static final int XZ = 64;
@@ -308,14 +316,6 @@ public class PegasusEntity extends AbstractHorseEntity implements IFlyingAnimal 
                 makeMad();
                 world.setEntityState(PegasusEntity.this, (byte) 6);
             }
-        }
-    }
-
-    public static class Factory implements EntityType.IFactory<PegasusEntity> {
-        @Nonnull
-        @Override
-        public PegasusEntity create(@Nullable EntityType<PegasusEntity> type, @Nonnull World world) {
-            return new PegasusEntity(world);
         }
     }
 }

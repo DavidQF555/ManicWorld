@@ -1,12 +1,14 @@
-package com.davidqf.minecraft.manicworld.client.render;
+package io.github.davidqf555.minecraft.manicworld.client.render;
 
-import com.davidqf.minecraft.manicworld.ManicWorld;
-import com.davidqf.minecraft.manicworld.client.model.PegasusWingsModel;
-import com.davidqf.minecraft.manicworld.entities.PegasusEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
+import io.github.davidqf555.minecraft.manicworld.ManicWorld;
+import io.github.davidqf555.minecraft.manicworld.client.model.PegasusWingsModel;
+import io.github.davidqf555.minecraft.manicworld.entities.PegasusEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.*;
+import net.minecraft.client.renderer.entity.AbstractHorseRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.IEntityRenderer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.entity.model.HorseModel;
 import net.minecraft.client.renderer.texture.OverlayTexture;

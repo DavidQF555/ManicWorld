@@ -1,7 +1,7 @@
-package com.davidqf.minecraft.manicworld;
+package io.github.davidqf555.minecraft.manicworld;
 
-import com.davidqf.minecraft.manicworld.entities.EntityRegistry;
-import com.davidqf.minecraft.manicworld.entities.PegasusEntity;
+import io.github.davidqf555.minecraft.manicworld.entities.EntityRegistry;
+import io.github.davidqf555.minecraft.manicworld.entities.PegasusEntity;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.DeferredWorkQueue;

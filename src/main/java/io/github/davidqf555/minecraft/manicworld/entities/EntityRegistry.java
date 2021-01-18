@@ -1,6 +1,6 @@
-package com.davidqf.minecraft.manicworld.entities;
+package io.github.davidqf555.minecraft.manicworld.entities;
 
-import com.davidqf.minecraft.manicworld.ManicWorld;
+import io.github.davidqf555.minecraft.manicworld.ManicWorld;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;

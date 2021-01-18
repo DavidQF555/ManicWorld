@@ -1,7 +1,7 @@
-package com.davidqf.minecraft.manicworld.world.gen;
+package io.github.davidqf555.minecraft.manicworld.world.gen;
 
-import com.davidqf.minecraft.manicworld.ManicWorld;
-import com.davidqf.minecraft.manicworld.entities.EntityRegistry;
+import io.github.davidqf555.minecraft.manicworld.ManicWorld;
+import io.github.davidqf555.minecraft.manicworld.entities.EntityRegistry;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;

@@ -12,8 +12,8 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '1.16.1-0.9.1.1'
-group = 'com.davidqf.minecraft.manicworld'
+version = '1.16.1-0.9.1.2'
+group = 'io.github.davidqf555.minecraft.manicworld'
 archivesBaseName = 'manicworld'
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'

@@ -1,4 +1,4 @@
-package com.davidqf.minecraft.manicworld.entities;
+package io.github.davidqf555.minecraft.manicworld.entities;
 
 import net.minecraft.entity.ai.goal.RandomWalkingGoal;
 import net.minecraft.entity.monster.ZombieEntity;
@@ -8,7 +8,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.vector.Vector3d;
 
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.List;
 
 public class ZombieHoardGoal extends RandomWalkingGoal {
 
