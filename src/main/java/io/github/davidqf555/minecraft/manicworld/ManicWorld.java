@@ -1,6 +1,7 @@
 package io.github.davidqf555.minecraft.manicworld;
 
 import io.github.davidqf555.minecraft.manicworld.common.entities.EntityRegistry;
+import io.github.davidqf555.minecraft.manicworld.common.entities.NecromancerEntity;
 import io.github.davidqf555.minecraft.manicworld.common.entities.PegasusEntity;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraftforge.common.MinecraftForge;
@@ -26,7 +27,10 @@ public class ManicWorld {
 
     @Deprecated
     private void setup(final FMLCommonSetupEvent event) {
-        DeferredWorkQueue.runLater(() -> GlobalEntityTypeAttributes.put(EntityRegistry.PEGASUS_ENTITY.get(), PegasusEntity.setAttributes().create()));
+        DeferredWorkQueue.runLater(() -> {
+            GlobalEntityTypeAttributes.put(EntityRegistry.PEGASUS_ENTITY.get(), PegasusEntity.setAttributes().create());
+            GlobalEntityTypeAttributes.put(EntityRegistry.NECROMANCER_ENTITY.get(), NecromancerEntity.setAttributes().create());
+        });
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {

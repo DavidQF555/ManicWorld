@@ -14,6 +14,7 @@ public class EntityRegistry {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, ManicWorld.MOD_ID);
 
     public static final RegistryObject<EntityType<PegasusEntity>> PEGASUS_ENTITY = ENTITY_TYPES.register("pegasus_entity", () -> EntityType.Builder.create(new PegasusEntity.Factory(), EntityClassification.CREATURE).size(1.3964f, 1.6f).build(new ResourceLocation(ManicWorld.MOD_ID, "pegasus_entity").toString()));
+    public static final RegistryObject<EntityType<NecromancerEntity>> NECROMANCER_ENTITY = ENTITY_TYPES.register("necromancer_entity", () -> EntityType.Builder.create(new NecromancerEntity.Factory(), EntityClassification.MONSTER).size(0.6f, 1.95f).build(new ResourceLocation(ManicWorld.MOD_ID, "necromancer_entity").toString()));
 
     public static void register() {
         ENTITY_TYPES.register(FMLJavaModLoadingContext.get().getModEventBus());

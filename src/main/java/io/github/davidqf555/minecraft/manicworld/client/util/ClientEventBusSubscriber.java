@@ -1,6 +1,7 @@
-package io.github.davidqf555.minecraft.manicworld.common.util;
+package io.github.davidqf555.minecraft.manicworld.client.util;
 
 import io.github.davidqf555.minecraft.manicworld.ManicWorld;
+import io.github.davidqf555.minecraft.manicworld.client.render.NecromancerRenderer;
 import io.github.davidqf555.minecraft.manicworld.client.render.PegasusRenderer;
 import io.github.davidqf555.minecraft.manicworld.common.entities.EntityRegistry;
 import net.minecraftforge.api.distmarker.Dist;
@@ -15,6 +16,7 @@ public class ClientEventBusSubscriber {
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.PEGASUS_ENTITY.get(), PegasusRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.NECROMANCER_ENTITY.get(), NecromancerRenderer::new);
     }
 
 }
