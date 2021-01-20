@@ -15,10 +15,13 @@ import net.minecraft.entity.monster.ZombieEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.particles.ParticleTypes;
+import net.minecraft.util.ColorHelper;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.util.Constants;
@@ -36,6 +39,7 @@ public class NecromancerEntity extends SpellcastingIllagerEntity {
     private static final String TAG_KEY = ManicWorld.MOD_ID + ".necromancer_entity";
     private static final double MAX_DISTANCE = 16;
     private static final int SUMMON_RADIUS = 3;
+    private static final int SPELL_COLOR = 0xFFAA00AA;
     private final List<UUID> summons;
     private int maxSummons;
 
@@ -59,9 +63,9 @@ public class NecromancerEntity extends SpellcastingIllagerEntity {
         goalSelector.addGoal(0, new SwimGoal(this));
         goalSelector.addGoal(1, new SpellcastingIllagerEntity.CastingASpellGoal());
         goalSelector.addGoal(4, new RaiseDeadGoal());
-        goalSelector.addGoal(8, new RandomWalkingGoal(this, 0.6D));
-        goalSelector.addGoal(9, new LookAtGoal(this, PlayerEntity.class, 3.0F, 1.0F));
-        goalSelector.addGoal(10, new LookAtGoal(this, MobEntity.class, 8.0F));
+        goalSelector.addGoal(8, new RandomWalkingGoal(this, 0.6));
+        goalSelector.addGoal(9, new LookAtGoal(this, PlayerEntity.class, 3, 1));
+        goalSelector.addGoal(10, new LookAtGoal(this, MobEntity.class, 8));
         targetSelector.addGoal(1, (new HurtByTargetGoal(this, AbstractRaiderEntity.class)).setCallsForHelp());
         targetSelector.addGoal(2, (new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true)).setUnseenMemoryTicks(300));
         targetSelector.addGoal(3, (new NearestAttackableTargetGoal<>(this, AbstractVillagerEntity.class, false)).setUnseenMemoryTicks(300));
@@ -83,6 +87,27 @@ public class NecromancerEntity extends SpellcastingIllagerEntity {
             }
         }
         super.livingTick();
+    }
+
+    @Override
+    public void tick() {
+        if (world.isRemote() && isSpellcasting()) {
+            SpellType type = getSpellType();
+            setSpellType(SpellType.NONE);
+            super.tick();
+            setSpellType(type);
+            float red = ColorHelper.PackedColor.getRed(SPELL_COLOR) / 255f;
+            float blue = ColorHelper.PackedColor.getBlue(SPELL_COLOR) / 255f;
+            float green = ColorHelper.PackedColor.getGreen(SPELL_COLOR) / 255f;
+            float dir = (float) (renderYawOffset * Math.PI / 180) + MathHelper.cos(ticksExisted * 0.6662f) * 0.25f;
+            float x = MathHelper.cos(dir);
+            float y = MathHelper.sin(dir);
+            world.addParticle(ParticleTypes.ENTITY_EFFECT, getPosX() + x * 0.6, getPosY() + 1.8, getPosZ() + y * 0.6, red, green, blue);
+            world.addParticle(ParticleTypes.ENTITY_EFFECT, getPosX() - x * 0.6, getPosY() + 1.8, getPosZ() - y * 0.6, red, green, blue);
+
+        } else {
+            super.tick();
+        }
     }
 
     @Override
@@ -148,7 +173,7 @@ public class NecromancerEntity extends SpellcastingIllagerEntity {
 
     private class RaiseDeadGoal extends SpellcastingIllagerEntity.UseSpellGoal {
 
-        ZombieEntity summon;
+        private ZombieEntity summon;
 
         private RaiseDeadGoal() {
             summon = null;
@@ -157,7 +182,7 @@ public class NecromancerEntity extends SpellcastingIllagerEntity {
         @Override
         public boolean shouldExecute() {
             if (summons.size() < maxSummons && super.shouldExecute()) {
-                if (world.isDaytime()) {
+                if (world.isDaytime() && !world.isRaining()) {
                     summon = EntityType.HUSK.create(world);
                 } else {
                     summon = EntityType.ZOMBIE.create(world);
