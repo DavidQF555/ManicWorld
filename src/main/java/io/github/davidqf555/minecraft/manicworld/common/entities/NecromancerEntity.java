@@ -82,7 +82,7 @@ public class NecromancerEntity extends SpellcastingIllagerEntity {
                 if (summon == null || !summon.isAlive() || getDistanceSq(summon) >= MAX_DISTANCE * MAX_DISTANCE) {
                     summons.remove(i);
                 } else if (target != null && summon instanceof MobEntity) {
-                    ((MobEntity) target).setAttackTarget(target);
+                    ((MobEntity) summon).setAttackTarget(target);
                 }
             }
         }
